@@ -198,7 +198,7 @@
         .grid-footer .btn { width: 100%; }
 
         /* ==================== GUESS SCREEN ==================== */
-        #guess-screen { flex-direction: column; padding: 12px 16px; max-width: 680px; margin: 0 auto; width: 100%; }
+        #guess-screen { flex-direction: column; padding: 12px 16px; max-width: 680px; margin: 0 auto; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
 
         .guess-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -210,13 +210,16 @@
         .guess-header .q-label .q-num { color: var(--secondary); font-size: 1rem; font-weight: 800; }
         .guess-header .g-score { display: flex; align-items: center; gap: 5px; font-weight: 700; color: var(--success); font-size: 0.85rem; }
 
-        .guess-body { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 0; }
+        .guess-body {
+            flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            min-height: 0;
+        }
 
         .question-card {
             background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border);
             padding: 14px; width: 100%; box-shadow: var(--shadow);
             animation: cardSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; flex-shrink: 1; min-height: 0;
+            display: flex; flex-direction: column; flex: 1; min-height: 0; overflow-y: auto;
         }
 
         .question-label { display: inline-flex; align-items: center; gap: 6px; background: var(--gradient-1); padding: 5px 12px; border-radius: 8px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; flex-shrink: 0; color: white; }
@@ -323,8 +326,8 @@
             .grid-box .box-number { font-size: 0.85rem; }
             .grid-title { font-size: 0.85rem; margin-bottom: 8px; }
 
-            #guess-screen { padding: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; }
+            #guess-screen { padding: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+            .guess-body { gap: 6px; }
             .guess-header { padding: 6px 10px; border-radius: 14px; }
             .guess-header .q-label, .guess-header .g-score { font-size: 0.75rem; }
             .timer-ring-wrap { width: 38px; height: 38px; }
@@ -355,8 +358,8 @@
             .grid-container { gap: 8px; margin-bottom: 12px; }
             .grid-title { margin-bottom: 12px; }
 
-            #guess-screen { padding: 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; }
+            #guess-screen { padding: 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+            .guess-body { gap: 8px; }
             .guess-header { padding: 7px 12px; border-radius: 16px; }
             .timer-ring-wrap { width: 42px; height: 42px; }
             .timer-ring-svg { width: 42px; height: 42px; }
@@ -364,6 +367,8 @@
             .timer-number { font-size: 0.82rem; }
             .question-card { padding: 12px; }
             .image-container { aspect-ratio: auto; }
+            .guess-input-wrap { flex-direction: column; gap: 6px; }
+            .guess-input-wrap .btn { width: 100%; padding: 11px; }
             .answer-text { font-size: 0.95rem; }
             .timesup-box { padding: 28px 24px; margin: 0 16px; }
         }
@@ -377,10 +382,9 @@
             #grid-screen { padding: 24px; }
             .grid-container { gap: 12px; max-width: 480px; }
 
-            #guess-screen { max-width: 600px; padding: 24px; height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; }
-            .question-card { flex: 1; min-height: 0; padding: 20px; }
-            .image-container { flex: 1; min-height: 0; aspect-ratio: auto; }
+            #guess-screen { max-width: 600px; padding: 24px; }
+            .question-card { padding: 20px; }
+            .image-container { aspect-ratio: auto; }
         }
 
         @media (min-width: 1024px) {
@@ -396,10 +400,9 @@
             .grid-container { gap: 12px; max-width: 520px; }
             .grid-box .box-number { font-size: 1rem; }
 
-            #guess-screen { max-width: 640px; padding: 20px; height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; }
-            .question-card { flex: 1; min-height: 0; padding: 22px; }
-            .image-container { flex: 1; min-height: 0; aspect-ratio: auto; }
+            #guess-screen { max-width: 640px; padding: 20px; }
+            .question-card { padding: 22px; }
+            .image-container { aspect-ratio: auto; }
             .question-label { padding: 5px 14px; font-size: 0.7rem; }
             .question-text { font-size: 1.05rem; margin-bottom: 12px; }
             .answer-text { font-size: 1.05rem; }
@@ -418,10 +421,9 @@
             .grid-container { gap: 14px; max-width: 580px; }
             .grid-box .box-number { font-size: 1.15rem; }
 
-            #guess-screen { max-width: 720px; padding: 28px; height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; }
-            .question-card { flex: 1; min-height: 0; padding: 28px; border-radius: 28px; }
-            .image-container { flex: 1; min-height: 0; aspect-ratio: auto; border-radius: 18px; }
+            #guess-screen { max-width: 720px; padding: 28px; }
+            .question-card { padding: 28px; border-radius: 28px; }
+            .image-container { aspect-ratio: auto; border-radius: 18px; }
             .question-label { padding: 6px 18px; font-size: 0.78rem; }
             .question-text { font-size: 1.2rem; margin-bottom: 16px; }
             .answer-text { font-size: 1.2rem; }
