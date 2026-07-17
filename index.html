@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Kuis Tebak Gambar</title>
     <meta name="description" content="Kuis tebak nama brand dari gambar. 25 pertanyaan, 60 detik per soal!">
     <meta name="theme-color" content="#6c5ce7">
@@ -210,13 +210,13 @@
         .guess-header .q-label .q-num { color: var(--secondary); font-size: 1rem; font-weight: 800; }
         .guess-header .g-score { display: flex; align-items: center; gap: 5px; font-weight: 700; color: var(--success); font-size: 0.85rem; }
 
-        .guess-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; gap: 10px; min-height: 0; }
+        .guess-body { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 0; }
 
         .question-card {
             background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border);
             padding: 14px; width: 100%; box-shadow: var(--shadow);
             animation: cardSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column;
+            display: flex; flex-direction: column; flex-shrink: 1; min-height: 0;
         }
 
         .question-label { display: inline-flex; align-items: center; gap: 6px; background: var(--gradient-1); padding: 5px 12px; border-radius: 8px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; flex-shrink: 0; color: white; }
@@ -224,7 +224,7 @@
 
         .question-text { font-size: clamp(0.85rem, 2.5vw, 1.05rem); font-weight: 600; margin-bottom: 10px; line-height: 1.4; flex-shrink: 0; color: var(--text-primary); }
 
-        .image-container { position: relative; width: 100%; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-card-light); aspect-ratio: 4/3; transition: border-color 0.4s, box-shadow 0.4s; }
+        .image-container { position: relative; width: 100%; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-card-light); aspect-ratio: 4/3; transition: border-color 0.4s, box-shadow 0.4s; flex-shrink: 1; min-height: 0; }
         .image-container img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
         .image-container .image-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.08), transparent 25%); pointer-events: none; }
         .image-container.reveal-border { border: 2px solid rgba(0, 184, 148, 0.4); box-shadow: 0 0 24px rgba(0, 184, 148, 0.12); }
@@ -323,8 +323,8 @@
             .grid-box .box-number { font-size: 0.85rem; }
             .grid-title { font-size: 0.85rem; margin-bottom: 8px; }
 
-            #guess-screen { padding: 10px; height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; overflow-y: auto; }
+            #guess-screen { padding: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh; }
+            .guess-body { flex: 1; min-height: 0; }
             .guess-header { padding: 6px 10px; border-radius: 14px; }
             .guess-header .q-label, .guess-header .g-score { font-size: 0.75rem; }
             .timer-ring-wrap { width: 38px; height: 38px; }
@@ -334,7 +334,7 @@
             .question-card { padding: 10px; border-radius: 16px; }
             .question-label { font-size: 0.6rem; padding: 3px 8px; }
             .question-text { font-size: 0.82rem; margin-bottom: 6px; }
-            .image-container { border-radius: 10px; }
+            .image-container { aspect-ratio: auto; border-radius: 10px; }
             .guess-input-wrap { flex-direction: column; gap: 6px; }
             .guess-input-wrap .btn { width: 100%; padding: 11px; }
             .timesup-box { padding: 24px 20px; margin: 0 12px; }
@@ -355,14 +355,15 @@
             .grid-container { gap: 8px; margin-bottom: 12px; }
             .grid-title { margin-bottom: 12px; }
 
-            #guess-screen { padding: 14px; height: 100vh; height: 100dvh; }
-            .guess-body { flex: 1; min-height: 0; overflow-y: auto; }
+            #guess-screen { padding: 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh; }
+            .guess-body { flex: 1; min-height: 0; }
             .guess-header { padding: 7px 12px; border-radius: 16px; }
             .timer-ring-wrap { width: 42px; height: 42px; }
             .timer-ring-svg { width: 42px; height: 42px; }
             .timer-ring-fill { stroke-dasharray: 118; }
             .timer-number { font-size: 0.82rem; }
             .question-card { padding: 12px; }
+            .image-container { aspect-ratio: auto; }
             .answer-text { font-size: 0.95rem; }
             .timesup-box { padding: 28px 24px; margin: 0 16px; }
         }
