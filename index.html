@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=overlays-content">
     <title>Kuis Tebak Gambar</title>
     <meta name="description" content="Kuis tebak nama brand dari gambar. 25 pertanyaan, 60 detik per soal!">
     <meta name="theme-color" content="#6c5ce7">
@@ -198,11 +198,11 @@
         .grid-footer .btn { width: 100%; }
 
         /* ==================== GUESS SCREEN ==================== */
-        #guess-screen { flex-direction: column; padding: 12px 16px; max-width: 680px; margin: 0 auto; width: 100%; height: var(--vh, 100vh); min-height: 0; overflow: hidden; }
+        #guess-screen { flex-direction: column; padding: 12px 16px; max-width: 680px; margin: 0 auto; width: 100%; height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
 
         .guess-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px; padding: 8px 14px;
+            margin-bottom: 0; padding: 8px 14px;
             background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border);
             gap: 8px; flex-shrink: 0; box-shadow: var(--shadow-sm);
         }
@@ -211,7 +211,7 @@
         .guess-header .g-score { display: flex; align-items: center; gap: 5px; font-weight: 700; color: var(--success); font-size: 0.85rem; }
 
         .guess-body {
-            flex: 1; display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+            flex: 1; display: flex; flex-direction: column; align-items: stretch; gap: 6px;
             min-height: 0; overflow: hidden;
         }
 
@@ -326,22 +326,24 @@
             .grid-box .box-number { font-size: 0.85rem; }
             .grid-title { font-size: 0.85rem; margin-bottom: 8px; }
 
-            #guess-screen { padding: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
-            .guess-body { gap: 6px; }
-            .guess-header { padding: 6px 10px; border-radius: 14px; }
+            #guess-screen { padding: 8px; padding-bottom: env(safe-area-inset-bottom, 0px); position: fixed; inset: 0; margin: 0; max-width: none; height: var(--vvh, 100dvh); }
+            .guess-body { gap: 4px; }
+            .guess-header { padding: 6px 10px; border-radius: 14px; margin-bottom: 0; }
             .guess-header .q-label, .guess-header .g-score { font-size: 0.75rem; }
             .timer-ring-wrap { width: 38px; height: 38px; }
             .timer-ring-svg { width: 38px; height: 38px; }
             .timer-ring-fill { stroke-dasharray: 106.8; }
             .timer-number { font-size: 0.75rem; }
-            .question-card { padding: 10px; border-radius: 16px; }
-            .question-label { font-size: 0.6rem; padding: 3px 8px; }
-            .question-text { font-size: 0.82rem; margin-bottom: 6px; }
+            .question-card { padding: 8px; border-radius: 14px; }
+            .question-label { font-size: 0.6rem; padding: 3px 8px; margin-bottom: 4px; }
+            .question-text { font-size: 0.82rem; margin-bottom: 4px; }
             .image-container { aspect-ratio: auto; border-radius: 10px; }
-            .guess-input-wrap { flex-direction: column; gap: 6px; }
-            .guess-input-wrap .btn { width: 100%; padding: 11px; }
+            .guess-input-wrap { flex-direction: column; gap: 4px; }
+            .guess-input-wrap input { padding: 10px 12px; font-size: 0.85rem; }
+            .guess-input-wrap .btn { width: 100%; padding: 10px; font-size: 0.82rem; }
+            .quiz-actions .btn { padding: 9px; font-size: 0.82rem; }
             .timesup-box { padding: 24px 20px; margin: 0 12px; }
-            .btn-lanjutkan { font-size: 0.85rem; padding: 11px 20px; }
+            .btn-lanjutkan { font-size: 0.85rem; padding: 10px 20px; }
         }
 
         @media (min-width: 381px) and (max-width: 600px) {
@@ -358,17 +360,19 @@
             .grid-container { gap: 8px; margin-bottom: 12px; }
             .grid-title { margin-bottom: 12px; }
 
-            #guess-screen { padding: 14px; padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
-            .guess-body { gap: 8px; }
-            .guess-header { padding: 7px 12px; border-radius: 16px; }
+            #guess-screen { padding: 12px; padding-bottom: env(safe-area-inset-bottom, 0px); position: fixed; inset: 0; margin: 0; max-width: none; height: var(--vvh, 100dvh); }
+            .guess-body { gap: 6px; }
+            .guess-header { padding: 7px 12px; border-radius: 16px; margin-bottom: 0; }
             .timer-ring-wrap { width: 42px; height: 42px; }
             .timer-ring-svg { width: 42px; height: 42px; }
             .timer-ring-fill { stroke-dasharray: 118; }
             .timer-number { font-size: 0.82rem; }
-            .question-card { padding: 12px; }
+            .question-card { padding: 10px; }
             .image-container { aspect-ratio: auto; }
-            .guess-input-wrap { flex-direction: column; gap: 6px; }
-            .guess-input-wrap .btn { width: 100%; padding: 11px; }
+            .guess-input-wrap { flex-direction: column; gap: 5px; }
+            .guess-input-wrap input { padding: 10px 14px; }
+            .guess-input-wrap .btn { width: 100%; padding: 10px; }
+            .quiz-actions .btn { padding: 10px; font-size: 0.85rem; }
             .answer-text { font-size: 0.95rem; }
             .timesup-box { padding: 28px 24px; margin: 0 16px; }
         }
@@ -497,7 +501,7 @@
             <button class="btn btn-primary" onclick="submitGuess()">Jawab</button>
         </div>
         <div class="quiz-actions" id="guess-actions">
-            <button class="btn btn-outline" onclick="revealAnswer()">Lihat Jawaban</button>
+            <button class="btn btn-outline" onclick="revealAnswer()">Menyerah</button>
         </div>
         <div class="result-reveal" id="self-grade" style="display:none;">
             <p class="your-guess" id="your-guess-text"></p>
@@ -921,9 +925,13 @@ createParticles();
 
 function setVh() {
     document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+    document.documentElement.style.setProperty('--vvh', window.visualViewport.height + 'px');
 }
 setVh();
 window.addEventListener('resize', setVh);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setVh);
+}
 
 function preloadImages() {
     for (let i = 1; i <= 25; i++) {
