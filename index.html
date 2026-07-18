@@ -334,10 +334,11 @@
             .timer-ring-svg { width: 38px; height: 38px; }
             .timer-ring-fill { stroke-dasharray: 106.8; }
             .timer-number { font-size: 0.75rem; }
-            .question-card { padding: 8px; border-radius: 14px; }
+            .question-card { padding: 8px; border-radius: 14px; flex: none; overflow: visible; }
             .question-label { font-size: 0.6rem; padding: 3px 8px; margin-bottom: 4px; }
             .question-text { font-size: 0.82rem; margin-bottom: 4px; }
-            .image-container { aspect-ratio: auto; border-radius: 10px; }
+            .image-container { aspect-ratio: auto; border-radius: 10px; max-height: 55vh; }
+            .image-container img { object-fit: contain; }
             .guess-input-wrap { flex-direction: column; gap: 4px; }
             .guess-input-wrap input { padding: 10px 12px; font-size: 0.85rem; }
             .guess-input-wrap .btn { width: 100%; padding: 10px; font-size: 0.82rem; }
@@ -367,8 +368,9 @@
             .timer-ring-svg { width: 42px; height: 42px; }
             .timer-ring-fill { stroke-dasharray: 118; }
             .timer-number { font-size: 0.82rem; }
-            .question-card { padding: 10px; }
-            .image-container { aspect-ratio: auto; }
+            .question-card { padding: 10px; flex: none; overflow: visible; }
+            .image-container { aspect-ratio: auto; max-height: 55vh; }
+            .image-container img { object-fit: contain; }
             .guess-input-wrap { flex-direction: column; gap: 5px; }
             .guess-input-wrap input { padding: 10px 14px; }
             .guess-input-wrap .btn { width: 100%; padding: 10px; }
@@ -497,10 +499,9 @@
             <div class="answer-text" id="answer-text"></div>
         </div>
         <div class="guess-input-wrap" id="guess-input-wrap">
-            <input type="text" id="guess-input" placeholder="Ketik jawabanmu..." autocomplete="off" onkeydown="if(event.key==='Enter')submitGuess()">
-            <button class="btn btn-primary" onclick="submitGuess()">Jawab</button>
+            <button class="btn btn-primary" onclick="submitGuess()" style="width:100%">Jawab</button>
         </div>
-        <div class="quiz-actions" id="guess-actions">
+        <div class="quiz-actions" id="guess-actions" style="display:none">
             <button class="btn btn-outline" onclick="revealAnswer()">Menyerah</button>
         </div>
         <div class="result-reveal" id="self-grade" style="display:none;">
@@ -685,16 +686,15 @@ function generateGrid() {
             box.classList.add('empty-box');
             box.innerHTML = '<span class="box-lock">🔒</span>';
         } else {
-            if (completed[i - 1]) {
-                box.classList.add('completed');
-                if (correctFlags[i - 1] === false) box.classList.add('wrong-mark');
-            }
+                if (completed[i - 1]) {
+                    box.classList.add('completed');
+                }
             box.onclick = () => selectBox(i);
             box.innerHTML =
                 '<span class="box-number">' + i + '</span>' +
                 '<img class="box-thumb" src="Jawaban/Jawaban' + i + '.jpeg" alt="" onerror="this.style.display=\'none\'">' +
                 '<div class="box-thumb-overlay"></div>' +
-                '<span class="box-check">' + (correctFlags[i-1] === false ? '❌' : '✅') + '</span>';
+                '<span class="box-check">✅</span>';
         }
         container.appendChild(box);
     }
@@ -751,7 +751,6 @@ function setupGuess() {
     ansText.style.animation = 'none';
 
     document.getElementById('guess-input-wrap').style.display = 'flex';
-    document.getElementById('guess-input').value = '';
 
     document.getElementById('guess-actions').style.display = 'flex';
 
@@ -762,14 +761,6 @@ function setupGuess() {
 
 function submitGuess() {
     if (answered) return;
-    userGuess = document.getElementById('guess-input').value.trim();
-    if (!userGuess) {
-        const inp = document.getElementById('guess-input');
-        inp.focus();
-        inp.style.borderColor = 'var(--danger)';
-        setTimeout(() => { inp.style.borderColor = ''; }, 600);
-        return;
-    }
     revealAnswer();
 }
 
@@ -778,7 +769,7 @@ function revealAnswer() {
     answered = true;
     isRevealed = true;
     currentTimedOut = false;
-    if (!userGuess) userGuess = document.getElementById('guess-input').value.trim() || '(Tidak menjawab)';
+    userGuess = '(Melihat Jawaban)';
     stopTimer();
     doReveal();
 }
@@ -792,17 +783,11 @@ function doReveal() {
     const wrap = document.getElementById('image-wrap');
     const img = document.getElementById('quiz-image');
 
-    const isTimeoutOrWrong = currentTimedOut || !isAnswerCorrect(userGuess, ANSWERS[num - 1]);
-    if (isTimeoutOrWrong) {
-        document.getElementById('wrong-sfx').currentTime = 0;
-        document.getElementById('wrong-sfx').play().catch(() => {});
-    } else {
-        document.getElementById('reveal-sfx').currentTime = 0;
-        document.getElementById('reveal-sfx').play().catch(() => {});
-    }
+    document.getElementById('reveal-sfx').currentTime = 0;
+    document.getElementById('reveal-sfx').play().catch(() => {});
 
     setTimeout(() => {
-        wrap.classList.add(isTimeoutOrWrong ? 'wrong-border' : 'reveal-border');
+        wrap.classList.add('reveal-border');
 
         img.style.opacity = '0';
         setTimeout(() => {
@@ -821,21 +806,14 @@ function doReveal() {
             label.classList.add('revealed');
             label.innerHTML = '<span>✅</span> Jawaban';
 
-            const isCorrect = isAnswerCorrect(userGuess, ANSWERS[num - 1]);
             const guessEl = document.getElementById('your-guess-text');
             const ansEl = document.getElementById('correct-answer-text');
             const resultEl = document.getElementById('auto-result');
 
-            if (currentTimedOut) {
-                guessEl.innerHTML = 'Jawabanmu: <span style="color:var(--danger)">Waktu habis!</span>';
-            } else if (isCorrect) {
-                guessEl.innerHTML = 'Jawabanmu: <span style="color:var(--success)">' + userGuess + ' ✓</span>';
-            } else {
-                guessEl.innerHTML = 'Jawabanmu: <span style="color:var(--danger)">' + userGuess + ' ✗</span>';
-            }
-            ansEl.textContent = 'Jawaban: ' + ANSWERS[num - 1];
-            resultEl.className = 'auto-result ' + (currentTimedOut ? 'timeout' : isCorrect ? 'correct' : 'wrong');
-            resultEl.textContent = currentTimedOut ? '⏰ Waktu Habis' : isCorrect ? '✅ Benar!' : '❌ Salah';
+            guessEl.innerHTML = 'Jawaban: <span>' + ANSWERS[num - 1] + '</span>';
+            ansEl.textContent = '';
+            resultEl.className = 'auto-result';
+            resultEl.textContent = '';
 
             document.getElementById('self-grade').style.display = 'block';
             document.getElementById('btn-lanjutkan').style.display = 'none';
@@ -847,20 +825,17 @@ function doReveal() {
     }, 600);
 }
 
-function gradeAnswer(correct) {
+function gradeAnswer() {
     if (!isRevealed) return;
     const idx = currentBox - 1;
     completed[idx] = true;
-    correctFlags[idx] = correct;
-
-    if (correct) { score++; correctCount++; } else { wrongCount++; }
+    correctFlags[idx] = false;
 
     switchScreen('guess-screen', 'grid-screen', () => generateGrid());
 }
 
 function goToGrid() {
-    const isCorrect = isAnswerCorrect(userGuess, ANSWERS[currentBox - 1]);
-    gradeAnswer(isCorrect);
+    gradeAnswer();
 }
 
 /* ==================== RESULT ==================== */
