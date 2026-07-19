@@ -551,14 +551,14 @@
 <audio id="timer-tick" src="timer-tick.mp3" preload="auto" loop></audio>
 
 <script>
-const TOTAL_QUESTIONS = 25;
-const ACTIVE_QUESTIONS = 25;
+const TOTAL_QUESTIONS = 26;
+const ACTIVE_QUESTIONS = 26;
 const TIME_PER_QUESTION = 60;
 const TIMER_CIRCUMFERENCE = 138.2;
 
 const ANSWERS = ['Nabati', 'Ekonomi', 'ABC', 'Durex', 'Diamond', 'Cimory', 'Choki Choki', 'Kapal Api', 'Roma Malkist',
-    'Pop Mie', 'Good Day', 'Lays', 'Chacha', 'Doritos', 'Tango', 'Luwak', 'Sedaap', 'Indomie Goreng', 'Sunlight',
-    'Teh Poci', 'Indomie Rendang', 'Monde', 'Royco', 'Qtela', 'Joa-Yo'];
+    'Pop Mie', 'Good Day', 'Lays', 'Chacha', 'Doritos', 'Tango', 'Luwak', 'Mie Sedaap Goreng', 'Indomie Goreng', 'Sunlight',
+    'Teh Poci', 'Indomie Rendang', 'Monde', 'Royco', 'Qtela', 'Joa-Yo', ''];
 
 function normalizeAnswer(str) {
     return str.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -908,7 +908,7 @@ if (window.visualViewport) {
 }
 
 function preloadImages() {
-    for (let i = 1; i <= 25; i++) {
+    for (let i = 1; i <= 26; i++) {
         const g = new Image(); g.src = 'Guest/Guest' + i + '.jpeg';
         const j = new Image(); j.src = 'Jawaban/Jawaban' + i + '.jpeg';
     }
